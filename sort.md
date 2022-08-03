@@ -164,3 +164,7 @@ func swap(arr []int, i, j int) {
 }
 ```
 
+- 归并排序和快递排序对比
+
+<img src="https://static001.geekbang.org/resource/image/aa/05/aa03ae570dace416127c9ccf9db8ac05.jpg?wh=1142*757" style="zoom:50%;" />
+

@@ -8,7 +8,8 @@ func main() {
 	arr := []int{9, 8, 7, 0, 23, 45, 2, 1}
 	sortArr := quickSort(arr)
 
-	fmt.Printf("%v", sortArr)
+	 i := Breach(sortArr, 2, 0, len(sortArr) -1)
+	fmt.Printf("%v \t i = %d", sortArr, i)
 }
 
 // 归并排序
@@ -98,4 +99,24 @@ func partition(arr []int, p int, r int) int {
 
 func swap(arr []int, i, j int) {
 	arr[i], arr[j] = arr[j], arr[i]
+}
+
+
+func Breach(arr []int, s int, left int, right int) int {
+
+	if left > right {
+		return -1
+	}
+
+	mid := (left + right) / 2
+	fmt.Printf("--%d\n", arr[mid])
+	if arr[mid] == s {
+		return mid
+	} else if arr[mid] > s {
+		end := mid - 1
+		return Breach(arr, s, left, end)
+	} else {
+		start := mid + 1
+		return Breach(arr, s, start, right)
+	}
 }
