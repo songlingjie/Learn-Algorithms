@@ -13,6 +13,10 @@
 ### 树
 - [二叉树生成和遍历](https://github.com/songlingjie/Learn-Algorithms/blob/master/tree.md#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%94%9F%E6%88%90%E5%92%8C%E9%81%8D%E5%8E%86)
 
+### 链表
+- [反转链表](https://github.com/songlingjie/Learn-Algorithms/blob/master/linkedList.md#%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8)
+- [链表区间反转](https://github.com/songlingjie/Learn-Algorithms/blob/master/linkedList.md#%E9%93%BE%E8%A1%A8%E5%8C%BA%E9%97%B4%E5%8F%8D%E8%BD%AC)
+- [检测链表是否有环](https://github.com/songlingjie/Learn-Algorithms/blob/master/linkedList.md#%E6%A3%80%E6%B5%8B%E9%93%BE%E8%A1%A8%E6%98%AF%E5%90%A6%E6%9C%89%E7%8E%AF)
 
 ### 练习题
 - [斐波那耶数列](https://github.com/songlingjie/Learn-Algorithms/blob/master/algorithmTopic.md#%E6%96%90%E6%B3%A2%E9%82%A3%E8%80%B6%E6%95%B0%E5%88%97)
