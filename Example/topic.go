@@ -1,13 +1,49 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 func main() {
-	arr := []int{9, 8, 7, 0, 23, 45, 2, 1}
+	//arr := []int{9, 8, 7, 0, 23, 45, 2, 1}
 
-	n := findKNum(arr, 3, 0, len(arr)-1)
+	//n := findKNum(arr, 3, 0, len(arr)-1)
+	//
+	//fmt.Printf("%d", n)
 
-	fmt.Printf("%d", n)
+	//i := twoSum(arr, 15)
+	//fmt.Printf("%v", i)
+
+	fmt.Printf("result is %d", isPalindrome(12321))
+}
+
+func isPalindrome(num int) bool {
+	if num < 0 {
+		return false
+	}
+	s := strconv.Itoa(num)
+	l := len(s)
+	for i := 0; i < l / 2; i++ {
+		if s[i] != s[l-1-i]{
+			return false
+		}
+	}
+	return true
+}
+
+func noRepeatStrLen(s string) int {
+	var sMap = make(map[int]int)
+	result := 0
+	for i := 0; i < len(s); i++ {
+		_,ok := sMap[int(s[i])]
+		if ok {
+			result = max(result, len(sMap))
+			sMap = map[int]int{}
+		}
+		sMap[int(s[i])] ++
+	}
+	return result
 }
 
 // 求数组第K大元素
@@ -37,5 +73,33 @@ func findKNum(arr []int, k int, left int, right int) int {
 		return findKNum(arr, k, left, i-1)
 	} else {
 		return arr[i]
+	}
+}
+
+
+func twoSum(nums []int, target int) []int {
+	hashTable := make(map[int]int)
+
+	for i := 0; i < len(nums); i++ {
+		otherNum := target - nums[i]
+		otherIndex,ok := hashTable[otherNum]
+		if ok {
+			return []int{i,otherIndex}
+		}
+		hashTable[nums[i]] = i
+	}
+
+	return []int{}
+}
+
+func threeSum()  {
+	
+}
+
+func max(i int, j int) int {
+	if i > j {
+		return i
+	} else {
+		return j
 	}
 }

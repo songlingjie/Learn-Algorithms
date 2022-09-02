@@ -17,7 +17,7 @@ func FbByArr(n int) int {
 	arr[1] = 1
 	for i := 1; i < n; i++ {
 		tmp := arr[i]
-		arr[i+1] = arr[i-1] + tmp
+		arr[i+1] = arr[i-1] + arr[i]
 	}
 
 	return arr[n-1]
@@ -65,7 +65,6 @@ func Breach(arr []int, s int, left int, right int) int {
 	}
 
 	mid := (left + right) / 2
-	fmt.Printf("--%d\n", arr[mid])
 	if arr[mid] == s {
 		return mid
 	} else if arr[mid] > s {
@@ -76,4 +75,70 @@ func Breach(arr []int, s int, left int, right int) int {
 		return Breach(arr, s, start, right)
 	}
 }
+
 ```
+##### Tow Sum
+- 力扣.1
+- 在数组中找到 2 个数之和等于给定值的数字，结果返回 2 个数字在数组中的下标。
+- 顺序扫描数组，对每一个元素，在 map 中找能组合给定值的另一半数字，如果找到了，直接返回 2 个 数字的下标即可。如果找不到，就把这个数字存入 map 中，等待扫到“另一半”数字的时候，再取出来返 回结果。
+```go
+func twoSum(nums []int, target int) []int {
+	hashTable := make(map[int]int)
+
+	for i := 0; i < len(nums); i++ {
+		otherNum := target - nums[i]
+		otherIndex,ok := hashTable[otherNum]
+		if ok {
+			return []int{i,otherIndex}
+		}
+		hashTable[nums[i]] = i
+	}
+
+	return []int{}
+}
+```
+
+##### 不重复的字符长度
+- 力扣.3
+> 依次遍历字符串 s 中的每次字符，若不是重复字符，加入一个map中，若是重复字符，则计算长度清空Map，然后再将该字符加入此Map中。
+
+```go
+func noRepeatStrLen(s string) int {
+	var sMap = make(map[int]int)
+	result := 0
+	for i := 0; i < len(s); i++ {
+		_,ok := sMap[int(s[i])]
+		if ok {
+			result = max(result, len(sMap))
+			sMap = map[int]int{}
+		}
+		sMap[int(s[i])] ++
+	}
+	return result
+}
+```
+- 滑动窗口法
+> 滑动窗口的右边界不断的右移，只要没有重复的字符，就持续向右扩大窗口边界。一旦出现了重复字
+符，就需要缩小左边界，直到重复的字符移出了左边界，然后继续移动滑动窗口的右边界。以此类推，
+每次移动需要计算当前⻓度，并判断是否需要更新最大⻓度
+
+##### 是否是回文数
+- 力扣.9
+- 正序(从左向右)和倒序(从右向左)读都是一样的整数
+```go
+func isPalindrome(num int) bool {
+	if num < 0 {
+		return false
+	}
+	s := strconv.Itoa(num)
+	l := len(s)
+	for i := 0; i < l; i++ {
+		if s[i] != s[l-1-i]{
+			return false
+		}
+	}
+	return true
+}
+```
+
+
