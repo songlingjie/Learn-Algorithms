@@ -77,6 +77,68 @@ func Breach(arr []int, s int, left int, right int) int {
 }
 
 ```
+
+##### 广度优先路径
+> 广度优先搜索（Breadth-First-Search），我们平常都简称 BFS。直观地讲，它其实就是一种“地毯式”层层推进的搜索策略，即先查找离起始顶点最近的，然后是次近的，依次往外搜索。 
+> visited 是用来记录已经被访问的顶点，用来避免顶点被重复访问。如果顶点 q 被访问，那相应的 visited[q]会被设置为 true。queue 用来存储已经被访问、但相连的顶点还没有被访问的顶点。因为广度优先搜索是逐层访问的，也就是说，我们只有把第 k 层的顶点都访问完成之后，才能访问第 k+1 层的顶点
+```php
+function bfs($graph, $j, $s): array
+{
+
+    $visited = []; //判断节点是否 被访问过
+    $queue   = [];
+    $path    = []; // 访问路径
+
+    $queue[]     = $j;
+    $visited[$j] = true;
+    while (!is_null($q = array_shift($queue))) {
+        foreach ($graph[$q] as $key => $item) {
+            if ($visited[$key]) {
+                continue;
+            }
+            $path[] = $key;
+            if ($key == $s) {
+                return $path;
+            }
+            $queue[]       = $key;
+            $visited[$key] = true;
+        }
+    }
+    return $path;
+}
+```
+
+##### 深度优先
+> 深度优先搜索（Depth-First-Search），简称 DFS。最直观的例子就是“走迷宫”。假设你站在迷宫的某个岔路口，然后想找到出口。你随意选择一个岔路口来走，走着走着发现走不通的时候，你就回退到上一个岔路口，重新选择一条路继续走，直到最终找到出口。这种走法就是一种深度优先搜索策略。
+```php
+function dfs($graph, $j, $s): array
+{
+    $visited = [];
+    $path    = [];
+    $found = false;
+
+    _dfs($j, $s, $graph, $visited, $path, $found);
+    return $path;
+}
+function _dfs($j, $s, $graph, &$visited, &$path, &$found)
+{
+    if ($j == $s) {
+        $found = true;
+    }
+    if ($found) {
+        return true;
+    }
+    $visited[$j] = true;
+
+    foreach ($graph[$j] as $key => $item) {
+        if (!$visited[$key]) {
+            $path[] = $key;
+             _dfs($key, $s, $graph, $visited, $path, $found);
+        }
+    }
+}
+```
+
 ##### Tow Sum
 - 力扣.1
 - 在数组中找到 2 个数之和等于给定值的数字，结果返回 2 个数字在数组中的下标。
@@ -118,9 +180,31 @@ func noRepeatStrLen(s string) int {
 }
 ```
 - 滑动窗口法
-> 滑动窗口的右边界不断的右移，只要没有重复的字符，就持续向右扩大窗口边界。一旦出现了重复字
-符，就需要缩小左边界，直到重复的字符移出了左边界，然后继续移动滑动窗口的右边界。以此类推，
-每次移动需要计算当前⻓度，并判断是否需要更新最大⻓度
+> 滑动窗口的left不断的右移，只要没有重复的字符就 ++ 
+> 遇到重复字符 left = right，同时将 checked 置空
+> 每次移动需要计算当前最大⻓度
+```go
+func lengthOfLongestSubstring(s string) int  {
+
+	result, left, right := 0,0,0
+	sLen := len(s)
+
+	checked := [256]bool{}
+	for left < sLen && right < sLen {
+		if checked[s[right]] == false {
+			checked[s[right]] = true
+			right++
+		} else {
+			checked  = [256]bool{}
+			left = right
+		}
+		result = max(result, right-left)
+	}
+
+	return  result
+}
+
+```
 
 ##### 是否是回文数
 - 力扣.9
@@ -140,5 +224,46 @@ func isPalindrome(num int) bool {
 	return true
 }
 ```
+###### 最小窗口子串 
+- 力扣.76
+```go
+func minWinSubSting(s1 string, s2 string) [2]int  {
 
+	left := 0
+	var  result [2]int
+
+	s1Len := len(s1)
+	s2Len := len(s2)
+
+	checked := [256]bool{}
+	str2Sum := 0
+	for i := 0; i < s2Len; i++ {
+		checked[s2[i]] = true
+		str2Sum += int(s2[i])
+	}
+	sumFlag :=0
+	for right := 0; right < s1Len; right++ {
+		if !checked[s1[right]] {
+			continue
+		}
+		if sumFlag == 0 {
+			left = right
+		}
+		sumFlag += int(s1[right])
+		if sumFlag != str2Sum {
+			continue
+		}
+
+		if result[1] == 0 || result[1] - result[0] > right- left {
+			result[0] = left
+			result[1] = right
+		}
+
+		left = right
+		sumFlag = 0
+	}
+	return  result
+}
+
+```
 

@@ -32,20 +32,6 @@ func isPalindrome(num int) bool {
 	return true
 }
 
-func noRepeatStrLen(s string) int {
-	var sMap = make(map[int]int)
-	result := 0
-	for i := 0; i < len(s); i++ {
-		_,ok := sMap[int(s[i])]
-		if ok {
-			result = max(result, len(sMap))
-			sMap = map[int]int{}
-		}
-		sMap[int(s[i])] ++
-	}
-	return result
-}
-
 // 求数组第K大元素
 func findKNum(arr []int, k int, left int, right int) int {
 
@@ -96,7 +82,7 @@ func threeSum()  {
 	
 }
 
-func max(i int, j int) int {
+func Max(i int, j int) int {
 	if i > j {
 		return i
 	} else {
